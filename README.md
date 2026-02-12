@@ -1,5 +1,9 @@
 # ML Classification Model
 
+[![CI](https://github.com/AkhileshMalthi/ml-classification-model/actions/workflows/ci.yml/badge.svg)](https://github.com/AkhileshMalthi/ml-classification-model/actions/workflows/ci.yml)
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 A production-ready machine learning classification pipeline using scikit-learn, MLflow, FastAPI, and Docker. This project demonstrates model training, experiment tracking, model registry, and serving predictions via a REST API.
 
 ---
