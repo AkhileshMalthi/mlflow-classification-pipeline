@@ -71,13 +71,22 @@ def train_model(dataset_name='iris', C=1.0, penalty='l2', random_state=42):  # n
     mlflow.set_experiment(f"{dataset_name}_classification")
     with mlflow.start_run(run_name=f"{dataset_name}_logreg"):
         # Initialize and train model
-        model = LogisticRegression(C=C, penalty=penalty, random_state=random_state, max_iter=1000)
+        # Use solver that supports the chosen penalty type
+        solver = 'liblinear' if penalty == 'l1' else 'lbfgs'
+        model = LogisticRegression(
+            C=C, 
+            penalty=penalty, 
+            solver=solver,
+            random_state=random_state, 
+            max_iter=1000
+        )
         model.fit(X_train, y_train)
 
         # Log parameters
         mlflow.log_param("dataset_name", dataset_name)
         mlflow.log_param("C", C)
         mlflow.log_param("penalty", penalty)
+        mlflow.log_param("solver", solver)
         mlflow.log_param("random_state", random_state)
 
         # Predict and evaluate
@@ -153,3 +162,6 @@ def train_model(dataset_name='iris', C=1.0, penalty='l2', random_state=42):  # n
             value=f"{f1:.4f}"
         )
 
+if __name__ == "__main__":
+    mlflow.set_tracking_uri("http://host.docker.internal:5000")
+    train_model(dataset_name='iris')
