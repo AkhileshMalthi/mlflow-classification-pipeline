@@ -1,6 +1,7 @@
-# ML Classification Model
 
-[![CI](https://github.com/AkhileshMalthi/ml-classification-model/actions/workflows/ci.yml/badge.svg)](https://github.com/AkhileshMalthi/ml-classification-model/actions/workflows/ci.yml)
+# mlflow-classification-pipeline
+
+[![CI](https://github.com/AkhileshMalthi/mlflow-classification-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/AkhileshMalthi/mlflow-classification-pipeline/actions/workflows/ci.yml)
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -22,11 +23,12 @@ A production-ready machine learning classification pipeline using scikit-learn, 
 - Python 3.10+ (for local development)
 - Git
 
+
 ### Clone the Repository
 
 ```sh
-git clone https://github.com/AkhileshMalthi/ml-classification-model.git
-cd ml-classification-model
+git clone https://github.com/AkhileshMalthi/mlflow-classification-pipeline.git
+cd mlflow-classification-pipeline
 ```
 
 ---
