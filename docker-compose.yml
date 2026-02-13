@@ -1,4 +1,3 @@
-# docker-compose.yml
 services:
   mlflow_server:
     image: ghcr.io/mlflow/mlflow:latest

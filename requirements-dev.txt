@@ -1,0 +1,6 @@
+# Development and testing dependencies
+# Install with: uv pip install -r requirements-dev.txt
+pytest
+pytest-cov
+httpx
+ruff
