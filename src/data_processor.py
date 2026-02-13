@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 
-def load_and_preprocess_data(dataset_name='iris', test_size=0.2, random_state=42):
+def load_and_preprocess_data(dataset_name="iris", test_size=0.2, random_state=42):
     """
     Load and preprocess a scikit-learn classification dataset.
 
@@ -41,11 +41,7 @@ def load_and_preprocess_data(dataset_name='iris', test_size=0.2, random_state=42
         (120, 4)
     """
     # Select dataset loader
-    loaders = {
-        'iris': load_iris,
-        'wine': load_wine,
-        'breast_cancer': load_breast_cancer
-    }
+    loaders = {"iris": load_iris, "wine": load_wine, "breast_cancer": load_breast_cancer}
     if dataset_name not in loaders:
         raise ValueError(f"Unsupported dataset_name: {dataset_name}")
 

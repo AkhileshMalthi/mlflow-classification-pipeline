@@ -28,7 +28,7 @@ from sklearn.metrics import (
 from src.data_processor import load_and_preprocess_data
 
 
-def train_model(dataset_name='iris', C=1.0, penalty='l2', random_state=42):  # noqa: N803
+def train_model(dataset_name="iris", C=1.0, penalty="l2", random_state=42):  # noqa: N803
     """
     Train a classification model with MLflow experiment tracking.
 
@@ -65,20 +65,18 @@ def train_model(dataset_name='iris', C=1.0, penalty='l2', random_state=42):  # n
         - Automatically registers model with version management
     """
     # Load and preprocess data
-    X_train, X_test, y_train, y_test, scaler = load_and_preprocess_data(dataset_name, random_state=random_state)  # noqa: N806
+    X_train, X_test, y_train, y_test, scaler = load_and_preprocess_data(
+        dataset_name, random_state=random_state
+    )  # noqa: N806
 
     # Set up MLflow
     mlflow.set_experiment(f"{dataset_name}_classification")
     with mlflow.start_run(run_name=f"{dataset_name}_logreg"):
         # Initialize and train model
         # Use solver that supports the chosen penalty type
-        solver = 'liblinear' if penalty == 'l1' else 'lbfgs'
+        solver = "liblinear" if penalty == "l1" else "lbfgs"
         model = LogisticRegression(
-            C=C, 
-            penalty=penalty, 
-            solver=solver,
-            random_state=random_state, 
-            max_iter=1000
+            C=C, penalty=penalty, solver=solver, random_state=random_state, max_iter=1000
         )
         model.fit(X_train, y_train)
 
@@ -130,9 +128,7 @@ def train_model(dataset_name='iris', C=1.0, penalty='l2', random_state=42):  # n
 
         # Log and register model
         model_info = mlflow.sklearn.log_model(
-            sk_model=model,
-            artifact_path="model",
-            registered_model_name="ClassificationModel"
+            sk_model=model, artifact_path="model", registered_model_name="ClassificationModel"
         )
 
         # Add model description and tags
@@ -141,27 +137,22 @@ def train_model(dataset_name='iris', C=1.0, penalty='l2', random_state=42):  # n
         client.update_model_version(
             name="ClassificationModel",
             version=model_version,
-            description=f"Logistic Regression classifier trained on {dataset_name} dataset with C={C}, penalty={penalty}. F1-score: {f1:.4f}"
+            description=f"Logistic Regression classifier trained on {dataset_name} dataset with C={C}, penalty={penalty}. F1-score: {f1:.4f}",
         )
         client.set_model_version_tag(
-            name="ClassificationModel",
-            version=model_version,
-            key="dataset",
-            value=dataset_name
+            name="ClassificationModel", version=model_version, key="dataset", value=dataset_name
         )
         client.set_model_version_tag(
             name="ClassificationModel",
             version=model_version,
             key="algorithm",
-            value="LogisticRegression"
+            value="LogisticRegression",
         )
         client.set_model_version_tag(
-            name="ClassificationModel",
-            version=model_version,
-            key="f1_score",
-            value=f"{f1:.4f}"
+            name="ClassificationModel", version=model_version, key="f1_score", value=f"{f1:.4f}"
         )
+
 
 if __name__ == "__main__":
     mlflow.set_tracking_uri("http://host.docker.internal:5000")
-    train_model(dataset_name='iris')
+    train_model(dataset_name="iris")

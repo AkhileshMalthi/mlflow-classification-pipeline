@@ -36,6 +36,7 @@ scaler = None
 
 class Features(BaseModel):
     """Request model for prediction endpoint."""
+
     features: list
 
 
@@ -60,13 +61,14 @@ async def lifespan(app: FastAPI):
     run_id = model_version.run_id
 
     scaler_path = mlflow.artifacts.download_artifacts(
-        run_id=run_id,
-        artifact_path="preprocessing_artifacts/scaler.pkl"
+        run_id=run_id, artifact_path="preprocessing_artifacts/scaler.pkl"
     )
     scaler = joblib.load(scaler_path)
     yield
 
+
 app = FastAPI(lifespan=lifespan)
+
 
 @app.get("/health")
 def health():
@@ -117,13 +119,12 @@ def predict(payload: Features):
         preds = model.predict(X_scaled)
         probs = model.predict_proba(X_scaled)
 
-        return {
-            "prediction": preds.tolist(),
-            "probabilities": probs.tolist()
-        }
+        return {"prediction": preds.tolist(), "probabilities": probs.tolist()}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8000)

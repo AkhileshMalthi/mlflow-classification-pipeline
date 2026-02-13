@@ -39,7 +39,7 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W", "UP"]
-ignore = ["E501"]
+ignore = ["E501", "N806"]  # N806: Allow uppercase variable names (ML convention: X_train, y_test)
 
 [tool.coverage.run]
 source = ["src"]
