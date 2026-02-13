@@ -61,9 +61,12 @@ jobs:
     
     - name: Install uv
       uses: astral-sh/setup-uv@v5
-    
+
+    - name: Set up Python venv
+      run: uv venv
+
     - name: Install ruff
-      run: uv pip install ruff
+      run: uv add ruff
     
     - name: Run ruff linter
       run: uv run ruff check src/ tests/ --output-format=github
