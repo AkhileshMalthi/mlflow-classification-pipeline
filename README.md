@@ -46,11 +46,18 @@ cd ml-classification-model
 
 ## Running MLflow Experiments
 
+
 1. **Install dependencies** (for local runs):
 
-    ```sh
-    pip install -r requirements.txt
-    ```
+  You can use either `pip` or [`uv`](https://github.com/astral-sh/uv) (a fast Python package manager):
+
+  ```sh
+  # Using pip
+  pip install -r requirements.txt
+
+  # Or using uv (recommended for speed)
+  uv pip install -r requirements.txt
+  ```
 
 2. **Start MLflow tracking server** (if not using Docker):
 
