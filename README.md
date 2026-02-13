@@ -58,29 +58,32 @@ cd ml-classification-model
     mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./mlruns
     ```
 
+
 3. **Run multiple experiments** (recommended - executes 4 different hyperparameter configurations):
 
-    ```sh
-    python run_experiments.py
-    ```
+  > **Important:** For consistency and to avoid environment issues, run experiment and promotion scripts **inside the container** (unless your host environment exactly matches the container).
 
-    This will train models with different hyperparameters and log all results to MLflow.
+  ```sh
+  docker-compose exec model_api python run_experiments.py
+  ```
+
+  This will train models with different hyperparameters and log all results to MLflow.
 
 4. **Or train a single model:**
 
-    ```sh
-    python src/model_trainer.py
-    ```
+  ```sh
+  docker-compose exec model_api python src/model_trainer.py
+  ```
 
 5. **Promote the best model to Production:**
 
-    After running experiments, promote the best-performing model:
+  After running experiments, promote the best-performing model:
 
-    ```sh
-    python promote_model.py
-    ```
+  ```sh
+  docker-compose exec model_api python promote_model.py
+  ```
 
-    This will compare all model versions based on F1-score and promote the best one to Production stage.
+  This will compare all model versions based on F1-score and promote the best one to Production stage.
 
 ---
 
